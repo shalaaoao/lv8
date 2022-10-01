@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::any("/tests", "TestController@tests");
+
+Route::group(['prefix' => 'star'], function ($router) {
+
+    // 获取日志
+    $router->get('lists', 'StarController@lists');
+
+    // 新增
+    $router->post('add', 'StarController@add');
+
+    // 新增page
+    $router->get('add-page', 'StarController@addPage');
 });
+
