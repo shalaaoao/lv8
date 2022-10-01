@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +20,12 @@ Route::any("/tests", "TestController@tests");
 Route::group(['prefix' => 'star'], function ($router) {
 
     // 获取日志
-    $router->get('lists', 'StarController@lists');
+    $router->get('lists', [StarController::class, 'lists']);
 
     // 新增
-    $router->post('add', 'StarController@add');
+    $router->post('add', [StarController::class, 'add']);
 
     // 新增page
-    $router->get('add-page', 'StarController@addPage');
+    $router->get('add-page', [StarController::class, 'addPage']);
 });
 
