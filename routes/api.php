@@ -15,6 +15,10 @@ use App\Http\Controllers\StarController;
 |
 */
 
+Route::get('hello', function () {
+    echo phpinfo();
+});
+
 Route::any("/tests", "TestController@tests");
 
 Route::group(['prefix' => 'star'], function ($router) {

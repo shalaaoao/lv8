@@ -20,6 +20,8 @@ class Kernel extends ConsoleKernel
 
 //        $schedule->command('common:training-day')->dailyAt('18:30');
         $schedule->command('common:meeting-day')->dailyAt('12:00');
+
+        $schedule->command('test1')->everyMinute();
     }
 
     /**
