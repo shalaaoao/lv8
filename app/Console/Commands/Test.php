@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
+use function Swoole\Coroutine\run;
+use function Swoole\Coroutine\go;
 
 class Test extends Command
 {
@@ -39,5 +41,11 @@ class Test extends Command
      */
     public function handle()
     {
+        for ($i =0;$i<10;$i++){
+            run(function ($i) {
+                echo $i;
+            });
+        }
+
     }
 }
