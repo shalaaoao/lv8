@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
+use Swoole\Coroutine;
 use function Swoole\Coroutine\run;
 use function Swoole\Coroutine\go;
 
@@ -41,11 +42,36 @@ class Test extends Command
      */
     public function handle()
     {
-        for ($i =0;$i<10;$i++){
-            run(function ($i) {
-                echo $i;
-            });
-        }
+//        for ($i =0;$i<10;$i++){
+//            run(function ($i) {
+//                echo $i;
+//            });
+//        }
 
+
+
+        \Co\run(function() {
+            $a = go(function () {
+            Coroutine::sleep(1);
+//                sleep(1);
+                dump(111);
+                dump(111);
+                dump(111);
+                dump(111);
+                dump(111);
+                dump(111);
+                dump(111);
+                dump(111);
+            });
+
+            $a = go(function () {
+                dump(222);
+            });
+
+            dump(3333);
+        });
+
+
+        dump('aaaaaaa');
     }
 }
