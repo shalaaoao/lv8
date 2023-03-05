@@ -48,6 +48,8 @@ class FactorySimple extends Command
     }
 }
 
+// 所有服务商的类，都要实现的方法：发送短信、app推送
+// 定好基调：目的更多的是让代码更具备可读性、和书写更加严谨
 interface FactorySimpleMessage
 {
     public function send(string $msg);
@@ -116,6 +118,7 @@ class JiguangMessage implements FactorySimpleMessage
     }
 }
 
+// 服务商的简单工厂
 class MessageFactory
 {
     public static function createFactory($type, int $userId)
