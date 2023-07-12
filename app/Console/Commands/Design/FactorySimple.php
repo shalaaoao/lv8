@@ -4,37 +4,11 @@ namespace App\Console\Commands\Design;
 
 use Illuminate\Console\Command;
 
+
 class FactorySimple extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'design:factory-simple';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    protected $signature   = 'design:factory-simple';
     protected $description = '设计模式-简单工厂';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
 
     const TYPE_ALI     = 1;
     const TYPE_BAIDU   = 2;
@@ -50,23 +24,41 @@ class FactorySimple extends Command
 
 // 所有服务商的类，都要实现的方法：发送短信、app推送
 // 定好基调：目的更多的是让代码更具备可读性、和书写更加严谨
-interface FactorySimpleMessage
+abstract class FactorySimpleMessage
 {
-    public function send(string $msg);
+    protected array $config;
 
-    public function appPush();
-}
-
-class AliYunMessage implements FactorySimpleMessage
-{
-    public function __construct()
+    public function __construct(array $config)
     {
-        // 加载基础配置
+        $this->config = $config;
+
+        $this->loadConfig();
     }
 
-    public function setAAAA(int $userId)
+    abstract public function loadConfig();
+
+    abstract public function send(string $msg);
+
+    abstract public function appPush();
+}
+
+class AliYunMessage extends FactorySimpleMessage
+{
+    /**
+     * 配置相关的属性
+     * @var string
+     */
+    private string $key;
+    private string $appId;
+
+    public function loadConfig()
     {
-        // 根据参数加载一些特殊的配置
+        // 加载常规配置
+    }
+
+    public function setAAAA(int $userId): self
+    {
+        // 根据参数加载一些特殊的参数
         return $this;
     }
 
@@ -83,9 +75,19 @@ class AliYunMessage implements FactorySimpleMessage
     }
 }
 
-class BaiduYunMessage implements FactorySimpleMessage
+class BaiduYunMessage extends  FactorySimpleMessage
 {
-    // 同上加载配置
+
+    public function loadConfig()
+    {
+        // 加载常规配置
+    }
+
+    public function setBBBB(int $clientId): self
+    {
+        // 根据参数加载一些特殊的配置
+        return $this;
+    }
 
     public function send(string $msg)
     {
@@ -100,10 +102,12 @@ class BaiduYunMessage implements FactorySimpleMessage
     }
 }
 
-class JiguangMessage implements FactorySimpleMessage
+class JiguangMessage extends  FactorySimpleMessage
 {
-    // 同上加载配置
-
+    public function loadConfig()
+    {
+        // 加载常规配置
+    }
 
     public function send(string $msg)
     {
@@ -127,14 +131,14 @@ class MessageFactory
         switch ($type) {
             case FactorySimple::TYPE_ALI:
 
-                return (new AliYunMessage())->setAAAA($userId);
+                return (new AliYunMessage(['config']))->setAAAA($userId);
             case FactorySimple::TYPE_BAIDU:
 
                 // 比如这里需要setBBBB
-                return new BaiduYunMessage();
+                return (new BaiduYunMessage(['config']))->setBBBB(1);
             case FactorySimple::TYPE_JIGUANG:
 
-                return new JiguangMessage();
+                return new JiguangMessage(['config']);
             default:
                 return null;
         }

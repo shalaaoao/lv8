@@ -42,36 +42,16 @@ class Test extends Command
      */
     public function handle()
     {
-//        for ($i =0;$i<10;$i++){
-//            run(function ($i) {
-//                echo $i;
-//            });
-//        }
+        $client = new \Helloworld\GreeterClient('localhost:50051', [
+            'credentials' => \Grpc\ChannelCredentials::createInsecure(),
+        ]);
 
+        $request = new \Helloworld\HelloRequest();
+        $request->setName('World');
 
+        $response = $client->SayHello($request)->wait();
 
-        \Co\run(function() {
-            $a = go(function () {
-            Coroutine::sleep(1);
-//                sleep(1);
-                dump(111);
-                dump(111);
-                dump(111);
-                dump(111);
-                dump(111);
-                dump(111);
-                dump(111);
-                dump(111);
-            });
+        echo $response[0]->getMessage();
 
-            $a = go(function () {
-                dump(222);
-            });
-
-            dump(3333);
-        });
-
-
-        dump('aaaaaaa');
     }
 }
