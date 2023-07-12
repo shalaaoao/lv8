@@ -11,7 +11,6 @@
         "grpc/grpc": "^1.52",
         "guanguans/laravel-exception-notify": "^2.12",
         "guzzlehttp/guzzle": "^7.0.1",
-        "hhxsv5/laravel-s": "~3.7.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5"
