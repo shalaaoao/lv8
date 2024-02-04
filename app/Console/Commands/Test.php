@@ -3,10 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Redis;
-use Swoole\Coroutine;
-use function Swoole\Coroutine\run;
-use function Swoole\Coroutine\go;
 
 class Test extends Command
 {
@@ -42,16 +38,7 @@ class Test extends Command
      */
     public function handle()
     {
-        $client = new \Helloworld\GreeterClient('localhost:50051', [
-            'credentials' => \Grpc\ChannelCredentials::createInsecure(),
-        ]);
-
-        $request = new \Helloworld\HelloRequest();
-        $request->setName('World');
-
-        $response = $client->SayHello($request)->wait();
-
-        echo $response[0]->getMessage();
 
     }
+
 }

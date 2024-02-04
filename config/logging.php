@@ -66,6 +66,12 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
+        'apiAccess' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/apiAccess.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
 
         'slack' => [
             'driver' => 'slack',

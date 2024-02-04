@@ -26,8 +26,6 @@ class ApiAccessLog
             $uri        = $request->path();
             $ip         = $request->ip();
             $ua         = $request->header('User-Agent');
-            $shopId     = $request->header('shopId');
-            $brandId    = $request->header('brandId');
             $params     = json_encode($request->all() ?? []);
             $statusCode = $resp->getStatusCode();
             $ms         = floor((microtime(true) - LARAVEL_START) * 1000) . 'ms';
@@ -39,7 +37,7 @@ class ApiAccessLog
                 $response = '';
             }
 
-            $log = "[$ip] [$method] [$uri] [$params] [$ua] [$shopId] [$brandId] [$userId] [$statusCode] [$response] [$ms]";
+            $log = "[$ip] [$method] [$uri] [$params] [$ua] [$userId] [$statusCode] [$response] [$ms]";
             Log::channel('apiAccess')->info($log);
         }
 
