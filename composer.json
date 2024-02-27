@@ -13,7 +13,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "ritaswc/laravel-query-logger": "^2.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -26,7 +27,6 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Helloworld\\": "app/Helloworld/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
