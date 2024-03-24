@@ -100,7 +100,14 @@ class MTeamCrawlerCommand extends Command
 //            'createdDate' => $this->video['createdDate'] ?? '',
 //        ];
 
-        return "名称：" . $this->video['name'] . PHP_EOL . "简介：" . $this->video['smallDescr'] . PHP_EOL . "日期：" . $this->video['createdDate'] . "" . PHP_EOL . PHP_EOL;
+        $str = "名称：" . $this->video['name'] . PHP_EOL;
+        $str .= "简介：" . $this->video['smallDescr'] . PHP_EOL;
+        $str .= "日期：" . $this->video['createdDate'] . PHP_EOL;
+        $str .= "https://xp.m-team.io/detail/" . $this->video['id'] . PHP_EOL;
+
+        $str .= PHP_EOL;
+
+        return $str;
     }
 
     private function curl(string $mode, string $keyword, string $discount)
