@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         if ($h >= 10 && $h <= 23) {
 
             // 每16分钟执行一次
-            $schedule->command('pt:m-team-crawler')->cron('*/16 * * * *');
+            $schedule->command('pt:m-team-crawler')->cron('*/16 * * * *')->runInBackground();
         }
     }
 
