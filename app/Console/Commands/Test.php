@@ -44,7 +44,7 @@ class Test extends Command
          $a = Factory::feiShu()
                ->setToken('fefc8f74-0384-4c34-a7bb-2061e10563ed')
                ->setSecret('qF4XrVgQ1631VYaUPRRtEh')
-               ->setMessage((new \Guanguans\Notify\Messages\feishu\TextMessage('『aoao』teststestsetsetsetset')))
+               ->setMessage((new \Guanguans\Notify\Messages\Feishu\TextMessage('『aoao』teststestsetsetsetset')))
                ->send();
 
          dd($a);
