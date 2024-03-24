@@ -47,7 +47,10 @@ class MTeamCrawlerCommand extends Command
                 $this->video = $val;
 
                 // 3. 匹配规则
-                $this->matchResult[] = $this->matchRule($item->ruleArr);
+                $match = $this->matchRule($item->ruleArr);
+                if ($match) {
+                    $this->matchResult[] = $match;
+                }
             }
 
             // 4. 命中发送飞书
