@@ -45,6 +45,6 @@ class TrainingDay extends Command
 
         $msg = "dididi~健身健身啦~🏃🏻‍";
 
-        BaseNotice::send($msg, ['18621311906']);
+        BaseNotice::dingSend($msg, ['18621311906']);
     }
 }

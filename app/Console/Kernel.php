@@ -21,7 +21,15 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('common:training-day')->dailyAt('18:30');
         $schedule->command('common:meeting-day')->dailyAt('12:00');
 
-        $schedule->command('test1')->everyMinute();
+//        $schedule->command('test1')->everyMinute();
+
+        // 馒头爬虫 10:00-23:59之间允许执行
+        $h = date('H');
+        if ($h >= 10 && $h <= 23) {
+
+            // 每16分钟执行一次
+            $schedule->command('pt:m-team-crawler')->cron('*/16 * * * *');
+        }
     }
 
     /**

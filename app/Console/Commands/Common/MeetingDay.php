@@ -47,6 +47,6 @@ class MeetingDay extends Command
 
         $msg = "biubiubiu~".PHP_EOL."今天是我和宝宝相识的第{$meeting_dis}天💗".PHP_EOL."💕💕💕💕💕💕💕💕💕💕💕".PHP_EOL."和宝宝相恋的第{$love_dis}天👦💗👧".PHP_EOL;
 
-        BaseNotice::send($msg, ['18621311906']);
+        BaseNotice::dingSend($msg, ['18621311906']);
     }
 }

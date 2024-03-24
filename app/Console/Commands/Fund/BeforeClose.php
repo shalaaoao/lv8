@@ -49,7 +49,7 @@ class BeforeClose extends Command
         $arr = json_decode($res, true);
         $t_data = $arr['result'][0]['data'] ?? [];
         if (!$t_data) {
-            BaseNotice::send("获取大盘数据失败:". $res, ['13917836275']);
+            BaseNotice::dingSend("获取大盘数据失败:". $res, ['13917836275']);
 
             return false;
         }
@@ -66,6 +66,6 @@ class BeforeClose extends Command
             $msg .= '大盘下跌，🐷小饱饱注意补仓哟~';
         }
 
-        BaseNotice::send($msg, ['18621311906']);
+        BaseNotice::dingSend($msg, ['18621311906']);
     }
 }

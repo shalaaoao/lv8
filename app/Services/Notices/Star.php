@@ -32,7 +32,7 @@ class Star extends BaseNotice
         $msg .= $add->star_num . '颗✨✨' . PHP_EOL. PHP_EOL;
         $msg .= "详情请阅读：http://julyaoao.top/star/lists";
 
-        self::send($msg);
+        self::dingSend($msg);
     }
 
 }

@@ -40,6 +40,6 @@ class WeatherWarning extends Command
     public function handle()
     {
         $msg = Weather::instance()->warn();
-        BaseNotice::send($msg, ['18621311906']);
+        BaseNotice::dingSend($msg, ['18621311906']);
     }
 }
