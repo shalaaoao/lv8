@@ -120,7 +120,7 @@ class MTeamCrawlerCommand extends Command
             'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8',
             'cache-control: no-cache',
             'content-type: application/json',
-            'cookie: tp=N2M0Y2M1OWI4NDVhYWRjMDNkODQ3ZThlMmMyN2Y2YWY1NDJhYWNhNA%3D%3D; auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFsYWFvYW8iLCJ1aWQiOjMxMTU0NCwianRpIjoiYjY4Mzg5NWItMjM4OC00NzFiLTljMTktOWI1YjI4N2JmM2U3IiwiaXNzIjoiaHR0cHM6Ly94cC5tLXRlYW0uaW8iLCJpYXQiOjE3MTExNzM2MDAsImV4cCI6MTcxMTc3ODQwMH0.BV3v84b0cWtTnHPkY-ZOBT1RX2KWZtuETPd8lBJ5Id59ZDW5AFtrt862Kbddg0GptwHM6sidoPn_oOz3r6kmkg',
+            'cookie: tp=N2M0Y2M1OWI4NDVhYWRjMDNkODQ3ZThlMmMyN2Y2YWY1NDJhYWNhNA%3D%3D; auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFsYWFvYW8iLCJ1aWQiOjMxMTU0NCwianRpIjoiODU3NTQ2MzgtZTIzMC00MmRiLTg1ZTQtNGVlNzYyZWNlYzEyIiwiaXNzIjoiaHR0cHM6Ly94cC5tLXRlYW0uaW8iLCJpYXQiOjE3MTEzMjkwOTcsImV4cCI6MTcxMTkzMzg5N30.pqRp6HAN8rup1-x4KThaa3pbjKDbSTVZUPiT5VECYuQglqR_i6LjdpEm_bCEEqpPEpKOQlOFQF4pliB3pZpfyw',
             'origin: https://xp.m-team.io',
             'pragma: no-cache',
             'referer: https://xp.m-team.io/browse/tvshow?keyword=Simple%20Days',
