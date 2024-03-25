@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands\Pt;
 
+use App\Model\Pt\PtCrawlerLogModel;
 use App\Model\Pt\PtCrawlerModel;
+use App\Model\Pt\PtTokenModel;
 use App\Services\Notices\BaseNotice;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +25,9 @@ class MTeamCrawlerCommand extends Command
      * 匹配到的结果
      * @var array
      */
-    private array $matchResult = [];
+    private array $matchResult;
+
+    private PtCrawlerLogModel $ptCrawlerLogModel;
 
     public function handle()
     {
@@ -32,8 +36,10 @@ class MTeamCrawlerCommand extends Command
         // 1. 查库
         PtCrawlerModel::query()->where('status', PtCrawlerModel::STATUS_ING)->get()->each(function ($item) {
 
+            $this->matchResult = [];
+
             // 2. curl
-            $data = $this->curl($item->mode, $item->keyword, $item->discount);
+            $data = $this->curl($item->id, $item->mode, $item->keyword, $item->discount);
             if (!isset($data['code']) || $data['code'] != '0') {
 
                 // 记录日志，抛异常
@@ -63,6 +69,10 @@ class MTeamCrawlerCommand extends Command
                 // 更新状态
                 $item->status = PtCrawlerModel::STATUS_DONE;
                 $item->save();
+
+                // 更新请求的命中结果
+                $this->ptCrawlerLogModel->match_result = implode('', $this->matchResult);
+                $this->ptCrawlerLogModel->save();
             }
         });
     }
@@ -110,9 +120,11 @@ class MTeamCrawlerCommand extends Command
         return $str;
     }
 
-    private function curl(string $mode, string $keyword, string $discount)
+    private function curl(int $id, string $mode, string $keyword, string $discount)
     {
         $url = 'https://xp.m-team.io/api/torrent/search';
+
+        $cookie = PtTokenModel::getToken('pt');
 
         $headers = [
             'authority: xp.m-team.io',
@@ -120,7 +132,7 @@ class MTeamCrawlerCommand extends Command
             'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8',
             'cache-control: no-cache',
             'content-type: application/json',
-            'cookie: tp=N2M0Y2M1OWI4NDVhYWRjMDNkODQ3ZThlMmMyN2Y2YWY1NDJhYWNhNA%3D%3D; auth=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFsYWFvYW8iLCJ1aWQiOjMxMTU0NCwianRpIjoiODU3NTQ2MzgtZTIzMC00MmRiLTg1ZTQtNGVlNzYyZWNlYzEyIiwiaXNzIjoiaHR0cHM6Ly94cC5tLXRlYW0uaW8iLCJpYXQiOjE3MTEzMjkwOTcsImV4cCI6MTcxMTkzMzg5N30.pqRp6HAN8rup1-x4KThaa3pbjKDbSTVZUPiT5VECYuQglqR_i6LjdpEm_bCEEqpPEpKOQlOFQF4pliB3pZpfyw',
+            'cookie: ' . $cookie,
             'origin: https://xp.m-team.io',
             'pragma: no-cache',
             'referer: https://xp.m-team.io/browse/tvshow?keyword=Simple%20Days',
@@ -134,25 +146,28 @@ class MTeamCrawlerCommand extends Command
             'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
         ];
 
-        $data = json_encode([
+        $data = [
             'mode'       => $mode,
             'categories' => [],
             'visible'    => 1,
             'keyword'    => $keyword,
             'pageNumber' => 1,
             'pageSize'   => 100
-        ]);
+        ];
 
         if ($discount) {
             $data['discount'] = $discount;
         }
+
+        // 记录日志
+        $this->ptCrawlerLogModel = PtCrawlerLogModel::query()->create(['pt_crawler_id' => $id, 'request' => json_encode($data, JSON_UNESCAPED_UNICODE)]);
 
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
         $response = curl_exec($ch);
 
