@@ -122,28 +122,24 @@ class MTeamCrawlerCommand extends Command
 
     private function curl(int $id, string $mode, string $keyword, string $discount)
     {
-        $url = 'https://xp.m-team.io/api/torrent/search';
+        $url = 'https://api.m-team.io/api/torrent/search';
 
-        $cookie = PtTokenModel::getToken('pt');
+        $token = PtTokenModel::getToken('pt');
 
         $headers = [
-            'authority: xp.m-team.io',
-            'accept: application/json, text/plain, */*',
+            'accept:application/json, text/plain, */*',
             'accept-language: zh-CN,zh;q=0.9,zh-TW;q=0.8',
             'cache-control: no-cache',
             'content-type: application/json',
-            'cookie: ' . $cookie,
-            'origin: https://xp.m-team.io',
-            'pragma: no-cache',
-            'referer: https://xp.m-team.io/browse/tvshow?keyword=Simple%20Days',
-            'sec-ch-ua: "Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
-            'sec-ch-ua-mobile: ?0',
-            'sec-ch-ua-platform: "macOS"',
-            'sec-fetch-dest: empty',
-            'sec-fetch-mode: cors',
-            'sec-fetch-site: same-origin',
-            'ts: X',
-            'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+            'authorization: ' . $token,
+            'origin:https://kp.m-team.cc',
+            'priority:u=1, i',
+            'referer:https://kp.m-team.cc/',
+            'sec-ch-ua:"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+            'ts:'.time(),
+            'user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            'visitorid:d1f0856ff054685012fd41e679a84d7e',
+            'webversion:1010',
         ];
 
         $data = [
@@ -152,7 +148,7 @@ class MTeamCrawlerCommand extends Command
             'visible'    => 1,
             'keyword'    => $keyword,
             'pageNumber' => 1,
-            'pageSize'   => 100
+            'pageSize'   => 10
         ];
 
         if ($discount) {
