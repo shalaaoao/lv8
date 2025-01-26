@@ -25,15 +25,7 @@ class Test extends Command
      */
     protected $description = 'Command description';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    private string $outPath;
 
     /**
      * Execute the console command.
@@ -42,13 +34,10 @@ class Test extends Command
      */
     public function handle()
     {
-         $a = Factory::feiShu()
-               ->setToken('fefc8f74-0384-4c34-a7bb-2061e10563ed')
-               ->setSecret('qF4XrVgQ1631VYaUPRRtEh')
-               ->setMessage((new TextMessage('『aoao』teststestsetsetsetset')))
-               ->send();
 
-         dd($a);
+
     }
+
+
 
 }

@@ -12,8 +12,7 @@ class TestController extends Controller
 {
     public function tests()
     {
-        Runtime::enableCoroutine(SWOOLE_HOOK_ALL);
-return 1;
+
     }
 }
 
