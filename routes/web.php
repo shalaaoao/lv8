@@ -31,10 +31,22 @@ Route::prefix('calc')->group(function () {
 //        shuffle($arr);
 
         $arr = [
-            33, 16, 50, 13, 18, 34, 58, 15, 17, 25, 51, 66, 19, 27, 55
+            33,
+            16,
+            50,
+            13,
+            18,
+            34,
+            58,
+            15,
+            17,
+            25,
+            51,
+            66,
+            19,
+            27,
+            55
         ];
-
-        $arr = [55, 54, 100];
 
         foreach ($arr as $i) {
             $tree->insert($tree, $i, ['uuid' => \Illuminate\Support\Str::uuid()->jsonSerialize() . '-' . $i]);
@@ -58,6 +70,40 @@ Route::prefix('calc')->group(function () {
         $html = $tree->generateTreeHtml($tree);
 
 //        $tree->inOrder($tree, true);
+
+        return view('calc/binary-tree', ['tree' => $html]);
+    });
+
+    Route::get('/heap-tree', function () {
+
+        ini_set('memory_limit', '1030M');
+
+//        $heap = new \App\Entity\Calc\Heap('max');
+//
+//        $arr = range(1, 20);
+//        shuffle($arr);
+////        $arr = [8,5,3,4,2,9,10,6,1,7];
+//
+////        dump(implode(',', $arr));
+//
+//        foreach ($arr as $i) {
+//            $heap->insert($i);
+//        }
+//
+////        $heap->insert(13);
+////        $heap->insert(2);
+////        $heap->insert(11);
+//
+//        $heap->deleteTop();
+
+        // 已有数组建堆
+        $arr = range(1, 10);
+        shuffle($arr);
+
+        $heap2       = new \App\Entity\Calc\Heap('max');
+        $heap2->heap = $heap2->buildHeap($arr);
+//
+        $html = $heap2->generateHeapHtml();
 
         return view('calc/binary-tree', ['tree' => $html]);
     });

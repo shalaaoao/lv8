@@ -7,7 +7,7 @@
     <style>
         .tree {
             overflow-x: auto;
-            width: 100%; /* 你可以根据需要调整这个值 */
+            width: 150%; /* 你可以根据需要调整这个值 */
         }
 
         .tree ul {
