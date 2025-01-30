@@ -107,4 +107,24 @@ Route::prefix('calc')->group(function () {
 
         return view('calc/binary-tree', ['tree' => $html]);
     });
+
+    // 五子棋
+    Route::get('five-in-five', function () {
+
+        // 初始化15*15的二维数组
+        $arr = [];
+        for ($i = 0; $i < 15; $i++) {
+            for ($j = 0; $j < 15; $j++) {
+                $arr[$i][$j] = 0;
+            }
+        }
+
+        // 黑子代表1·，白字代表2
+        $arr[0][0] = 1;
+        $arr[1][1] = 2;
+        $arr[2][2] = 1;
+        $arr[3][3] = 2;
+
+        return view('calc/five-in-five', ['arr' => $arr]);
+    });
 });
