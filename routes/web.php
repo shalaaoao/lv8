@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Entity\Game\FiveInFive;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,20 +113,27 @@ Route::prefix('calc')->group(function () {
     // 五子棋
     Route::get('five-in-five', function () {
 
-        // 初始化15*15的二维数组
-        $arr = [];
-        for ($i = 0; $i < 15; $i++) {
-            for ($j = 0; $j < 15; $j++) {
-                $arr[$i][$j] = 0;
-            }
-        }
+        $uuid = Str::uuid()->jsonSerialize();
+        $fiveInFive = new FiveInFive($uuid);
+        $fiveInFive->loadImage();
+        $fiveInFive->skill(FiveInFive::COLOR_BLACK, 0, 0);
+//
+//        $fiveInFive = new FiveInFive($uuid);
+//        $fiveInFive->loadImage();
+//
+//        $fiveInFive->skill(FiveInFive::COLOR_WHITE, 1, 1);
+//        $fiveInFive->skill(FiveInFive::COLOR_BLACK, 0, 1);
+//        $fiveInFive->skill(FiveInFive::COLOR_WHITE, 1, 0);
+//        $fiveInFive->skill(FiveInFive::COLOR_BLACK, 0, 2);
+//        $fiveInFive->skill(FiveInFive::COLOR_WHITE, 1, 2);
+//        $fiveInFive->skill(FiveInFive::COLOR_BLACK, 0, 3);
+//        $fiveInFive->skill(FiveInFive::COLOR_WHITE, 1, 3);
+//        $fiveInFive->skill(FiveInFive::COLOR_BLACK, 0, 4);
+//        $fiveInFive->skill(FiveInFive::COLOR_WHITE, 1, 4);
 
-        // 黑子代表1·，白字代表2
-        $arr[0][0] = 1;
-        $arr[1][1] = 2;
-        $arr[2][2] = 1;
-        $arr[3][3] = 2;
 
-        return view('calc/five-in-five', ['arr' => $arr]);
+
+
+        return view('calc/five-in-five', ['chessboard' => $fiveInFive->getChessboard(), 'lastProducer' => $fiveInFive->getLastProducer()]);
     });
 });

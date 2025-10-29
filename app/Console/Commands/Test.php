@@ -7,6 +7,7 @@ use Guanguans\Notify\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Guanguans\Notify\Messages\FeiShu\TextMessage;
+use Illuminate\Support\Facades\Redis;
 
 class Test extends Command
 {
@@ -34,6 +35,8 @@ class Test extends Command
      */
     public function handle()
     {
+        $a = Redis::set('a', 1);
+        dd(Redis::get('a'));
     }
 
 

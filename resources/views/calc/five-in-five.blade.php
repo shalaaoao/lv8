@@ -16,11 +16,12 @@
         table {
             border-collapse: collapse;
             border: 2px solid #654321;
+            /*width: 100%;*/
         }
 
         td {
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
             position: relative;
             border: 1px solid rgba(101, 67, 33, 0.3);
         }
@@ -45,16 +46,42 @@
             background: #fff;
             border: 1px solid #ddd;
         }
+
+        /* 新增最后落子标记样式 */
+        .last-move::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 32px;
+            border: 2px solid #ff0000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.3; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0.8; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="chessboard">
         <table>
-            @foreach ($arr as $row)
+            @foreach ($chessboard as $x => $row)
                 <tr>
-                    @foreach ($row as $cell)
-                        <td>
+                    @foreach ($row as $y => $cell)
+                        @php
+                            $isLast = $lastProducer &&
+                                     $lastProducer[0] === $cell &&
+                                     $lastProducer[1] == $x &&
+                                     $lastProducer[2] == $y;
+                        @endphp
+                        <td class="{{ $isLast ? 'last-move' : '' }}">
                             @if ($cell === 1)
                                 <div class="stone black"></div>
                             @elseif ($cell === 2)
