@@ -30,6 +30,9 @@ class Kernel extends ConsoleKernel
             // 每16分钟执行一次
             $schedule->command('pt:m-team-crawler')->cron('*/16 * * * *')->runInBackground();
         }
+
+        // 硬盘检查 每周五 10点推送
+        $schedule->command('disk:check-health')->cron('0 10 * * 5')->runInBackground();
     }
 
     /**
